@@ -1,0 +1,29 @@
+rule DNS_response {
+        
+/https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-6/
+//https://help.dnsfilter.com/hc/en-us/articles/4408415850003-DNS-Return-Codes                
+
+author = "Analyst"
+    description = "This rule will search for DNS queries that  have suspicios dns response codes. "
+    severity = "Medium"
+   events:
+     $e.metadata.event_type = "NETWORK_DNS"
+     $e.metadata.vendor_name = "Google Cloud Platform"
+     $e.principal.resource.resource_type = "VIRTUAL_MACHINE"
+     $e.network.application_protocol = "DNS"  
+     $e.metadata.product_name = "Google Cloud DNS"
+     $e.network.dns.response_code = 9 or 
+     $e.network.dns.response_code = 8 or
+     $e.network.dns.response_code = 7 or
+     $e.network.dns.response_code = 6 or 
+     $e.network.dns.response_code = 2 or
+     $e.network.dns.response_code = 4 or
+     $e.network.dns.response_code = 10 or
+     $e.network.dns.response_code = 17 or
+     $e.network.dns.response_code = 16 or
+     $e.network.dns.response_code = 20 or 
+     $e.network.dns.response_code = 22 or
+     $e.network.dns.response_code = 23 or
+  condition:
+    $e
+}
