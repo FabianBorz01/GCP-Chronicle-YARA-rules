@@ -1,0 +1,50 @@
+rule DNS_suspicious_questions.type {
+        
+https://en.wikipedia.org/wiki/List_of_DNS_record_types              
+
+author = "Analyst"
+    description = "This rule will search for DNS queries that  have suspicios dns questions types. "
+    severity = "LOW"
+
+
+ events:
+     $e.metadata.event_type = "NETWORK_DNS"
+     $e.metadata.vendor_name = "Google Cloud Platform"
+     $e.principal.resource.resource_type = "VIRTUAL_MACHINE"
+     $e.network.application_protocol = "DNS"  
+     $e.metadata.product_name = "Google Cloud DNS"
+     $e.network.dns.questions.type = 2 or
+     $e.network.dns.questions.type = 3 or
+     $e.network.dns.questions.type = 4 or
+     $e.network.dns.questions.type = 7 or
+     $e.network.dns.questions.type = 8 or
+     $e.network.dns.questions.type = 9 or
+     $e.network.dns.questions.type = 10 or
+     $e.network.dns.questions.type = 13 or
+     $e.network.dns.questions.type = 14 or
+     $e.network.dns.questions.type = 15 or
+     $e.network.dns.questions.type = 16 or
+     $e.network.dns.questions.type = 17 or
+     $e.network.dns.questions.type = 18 or
+     $e.network.dns.questions.type = 29 or
+     $e.network.dns.questions.type = 37 or
+     $e.network.dns.questions.type = 39 or
+     $e.network.dns.questions.type = 42 or
+     $e.network.dns.questions.type = 43 or
+     $e.network.dns.questions.type = 44 or
+     $e.network.dns.questions.type = 45 or
+     $e.network.dns.questions.type = 25 or
+     $e.network.dns.questions.type = 47 or
+     $e.network.dns.questions.type = 50 or
+     $e.network.dns.questions.type = 53 or
+     $e.network.dns.questions.type = 61 or
+     $e.network.dns.questions.type = 63 or
+     $e.network.dns.questions.type = 32768 or
+     $e.network.dns.questions.type = 249 or
+     $e.network.dns.questions.type = 250 or
+     $e.network.dns.questions.type = 255 or
+     $e.network.dns.questions.type = 256 
+     
+  condition:
+    $e
+}
